@@ -1,13 +1,14 @@
 const express = require('express');
+const cors = require('cors'); // 1. Importar el paquete
 const app = express();
-const port = 3000;
 
-app.get('/saludo', (req, res) => {
+app.use(cors()); // 2. Permitir cualquier origen (Acceso total)
+app.use(express.json());
 
-    res.json({mensaje:'Hola mundo, API JSON'});
-});
+// Importar y usar tus rutas
+const usuarioRoutes = require('./routes/usuario.routes');
+app.use('/usuarios', usuarioRoutes);
 
-app.listen(port, () =>{
-
-    console.log(`Servidor corriendo en http://localhost:${port}`);
+app.listen(3000, () => {
+    console.log('Servidor corriendo en el puerto 3000');
 });
